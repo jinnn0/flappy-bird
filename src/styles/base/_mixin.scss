@@ -1,0 +1,27 @@
+@mixin border {
+  border: 1px solid black;
+}
+
+@mixin atSmall { 
+  @media (min-width: 500px) {
+    @content
+  }
+} 
+
+@mixin atMedium {
+  @media (min-width: 750px) {
+    @content
+  }
+}
+
+@mixin atLarge {
+  @media (min-width: 1000px) {
+    @content
+  }
+}
+
+@mixin atExtraLarge {
+  @media (min-width: 1600px) {
+    @content
+  }
+}

@@ -1,0 +1,13 @@
+@import './base/global';
+@import './base/mixin';
+@import './modules/wrapper';
+@import './modules/header';
+@import './modules/footer';
+
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

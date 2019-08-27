@@ -1,0 +1,28 @@
+footer {
+  height: 300px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+ 
+      .social {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+
+        @include atMedium {
+          width: 400px;
+        }
+
+              a {
+                border: 1px solid transparent;
+              }
+
+              a:hover {
+                border-bottom: 1px solid black;
+              }
+      } 
+}  
