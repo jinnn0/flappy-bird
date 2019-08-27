@@ -4,6 +4,42 @@ let c = canvas.getContext('2d')
 let ww = canvas.width = 288
 let wh = canvas.height = 600
 
+let imageNames = ["bg", "pipeUpper", "pipeLower", "ground", "bird"]
+let imageUrls = [
+  "./src/assets/image/BG.png",
+  "./src/assets/image/pipeUpper.png",
+  "./src/assets/image/pipeLower.png",
+  "./src/assets/image/ground.png",
+  "./src/assets/image/bird.png"
+]
+
+let imageLoadedCount = 0
+function startLoadingAllImages(start){
+  for(let i = 0; i < imageUrls.length; i++) {
+    imageNames[i] = new Image();
+
+    imageNames[i].onload = function(){ 
+      imageLoadedCount++; 
+      if (imageLoadedCount >= imageUrls.length ) {
+        start();
+      }
+    }
+
+    imageNames[i].onerror = function(){ alert("image load failed" )} 
+    imageNames[i].src = imageUrls[i];
+  }      
+}
+
+startLoadingAllImages(start)
+
+function start(){
+  drawBird()
+  drawPipe()
+  render()
+}
+
+
+
 let controller = {
   leftKeyDown: false,
   rightKeyDown: false,
@@ -33,30 +69,11 @@ let controller = {
   }
 }
 
-window.addEventListener('load', loadImage)
-
-function loadImage(){
-  let bg = new Image()
-  let pipeUpper = new Image()
-  let pipeLower = new Image()
-  let ground = new Image()
-  let flappyBird = new Image()
-  
-  bg.src = "./src/assets/image/BG.png"
-  pipeUpper.src = "./src/assets/image/pipeUpper.png"
-  pipeLower.src = "./src/assets/image/pipeLower.png"
-  ground.src = "./src/assets/image/ground.png"
-  flappyBird.src = "./src/assets/image/bird.png"
-}
-
 
 let jump = new Audio()
 let hit = new Audio()
 jump.src ="./src/assets/audio/jump.mp3"
 hit.src = "./src/assets/audio/hit.mp3"
-
-
-
 
 function Bird(){
   this.x = 10
@@ -67,7 +84,7 @@ function Bird(){
   this.height = 26
 
   this.draw = function(){
-    c.drawImage(flappyBird, this.x, this.y)
+      c.drawImage(imageNames[4], this.x, this.y)
   }
 
   this.update = function(){
@@ -111,8 +128,8 @@ function Pipe(x, y){
 
   this.draw = function(){
     for(let i = 0; i < pipes.length; i++) {
-      c.drawImage(pipeUpper, this.x, this.y)
-      c.drawImage(pipeLower, this.x, this.y + this.lowerPipeYPos)
+      c.drawImage(imageNames[1], this.x, this.y)
+      c.drawImage(imageNames[2], this.x, this.y + this.lowerPipeYPos)
     }
   }
 
@@ -155,7 +172,7 @@ function drawPipe(){
 
 function render(){
    c.fillRect(0, 0, ww, wh)
-   c.drawImage(bg, 0, 0)  
+   c.drawImage(imageNames[0], 0, 0)  
   
   for(let i = 0; i < birds.length; i++){
     birds[i].update()
@@ -165,14 +182,13 @@ function render(){
     pipes[i].update()
   }
   
-  c.drawImage(ground, 0, wh - ground.height)
-
+  c.drawImage(imageNames[3], 0, wh - imageNames[3].height)
   requestAnimationFrame(render)
 }
 
-drawBird()
-drawPipe()
-render()
+
+
+
 
 
 
@@ -191,3 +207,15 @@ function resize(){
 function randomInteger(min, max) {
  return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+
+
+// function loadAssets(url){
+//   return new Promise(resolve => {
+//     const image = new Image();
+//     image.addEventListener('load', () => {
+//         resolve(image);
+//     });
+//     image.src = url;
+//   }).catch((err) => console.log(err));
+// }
