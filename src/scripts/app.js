@@ -6,7 +6,7 @@ let wh = canvas.height = 600
 
 let imageNames = ["bg", "pipeUpper", "pipeLower", "ground", "bird"]
 let imageUrls = [
-  "./src/assets/image/BG.png",
+  "./src/assets/image/bg.png",
   "./src/assets/image/pipeUpper.png",
   "./src/assets/image/pipeLower.png",
   "./src/assets/image/ground.png",
