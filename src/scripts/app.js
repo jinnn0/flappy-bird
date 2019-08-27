@@ -4,6 +4,13 @@ let c = canvas.getContext('2d')
 let ww = canvas.width = 500
 let wh = canvas.height = 600
 
+
+let jump = new Audio()
+let hit = new Audio()
+jump.src ="./src/assets/audio/jump.mp3"
+hit.src = "./src/assets/audio/hit.mp3"
+
+
 let imageNames = ["bg", "pipeUpper", "pipeLower", "ground", "bird"]
 let imageUrls = [
   "./src/assets/image/bg.png",
@@ -12,6 +19,7 @@ let imageUrls = [
   "./src/assets/image/ground.png",
   "./src/assets/image/bird.png"
 ]
+
 
 let imageLoadedCount = 0
 function startLoadingAllImages(start){
@@ -70,11 +78,6 @@ let controller = {
 }
 
 
-let jump = new Audio()
-let hit = new Audio()
-jump.src ="./src/assets/audio/jump.mp3"
-hit.src = "./src/assets/audio/hit.mp3"
-
 function Bird(){
   this.x = 200
   this.y = 150
@@ -110,7 +113,7 @@ function Bird(){
         && this.x < pipes[i].x + pipes[i].width 
         && this.y + this.height > pipes[i].y + pipes[i].upperHeight + pipes[i].gap){
         hit.play()
-        // location.reload()
+        location.reload()
       }
     }
   }
@@ -196,37 +199,10 @@ function render(){
 }
 
 
-
-
-
 window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener)
 
 
-function resize(){
- ww = canvas.width = window.innerWidth - 100
- wh = canvas.height = window.innerHeight - 100
- screenRatio = wh /ww
- init()
-}
-
 function randomInteger(min, max) {
  return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
-
-
-
-
-
-
-
-// function loadAssets(url){
-//   return new Promise(resolve => {
-//     const image = new Image();
-//     image.addEventListener('load', () => {
-//         resolve(image);
-//     });
-//     image.src = url;
-//   }).catch((err) => console.log(err));
-// }
