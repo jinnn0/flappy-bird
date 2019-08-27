@@ -33,6 +33,22 @@ let controller = {
   }
 }
 
+window.addEventListener('load', loadImage)
+
+function loadImage(){
+  let bg = new Image()
+  let pipeUpper = new Image()
+  let pipeLower = new Image()
+  let ground = new Image()
+  let flappyBird = new Image()
+  
+  bg.src = "./src/assets/image/BG.png"
+  pipeUpper.src = "./src/assets/image/pipeUpper.png"
+  pipeLower.src = "./src/assets/image/pipeLower.png"
+  ground.src = "./src/assets/image/ground.png"
+  flappyBird.src = "./src/assets/image/bird.png"
+}
+
 
 let jump = new Audio()
 let hit = new Audio()
@@ -40,17 +56,6 @@ jump.src ="./src/assets/audio/jump.mp3"
 hit.src = "./src/assets/audio/hit.mp3"
 
 
-let bg = new Image()
-let pipeUpper = new Image()
-let pipeLower = new Image()
-let ground = new Image()
-let flappyBird = new Image()
-
-bg.src = "./src/assets/image/BG.png"
-pipeUpper.src = "./src/assets/image/pipeUpper.png"
-pipeLower.src = "./src/assets/image/pipeLower.png"
-ground.src = "./src/assets/image/ground.png"
-flappyBird.src = "./src/assets/image/bird.png"
 
 
 function Bird(){
