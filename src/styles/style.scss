@@ -6,13 +6,16 @@
 
 
 body {
+  width: 100%;
   height: 100vh;
+}
+
+canvas {
   position: absolute;
   top: 8%;
   left: 50%;
   transform: translateX(-50%);
   overflow: hidden;
-  // background-color: rgb(89, 89, 89);
 }
 
 .main-scroe {
@@ -29,12 +32,40 @@ body {
       }
 }
 
-.star-button {
+.score-history {
+  background-color: rgb(242, 242, 242);
+  width: 300px;
+  height: 500px;
   position: absolute;
-  top:  32%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-weight: bold;
-  font-size: 60px;
+  top: 8%;
+  left: 2%;
+  // border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: space-around;
+
+      .title {
+        margin-top: 30px;
+      }
+
+
+      .user-record {
+          margin-top: 60px;
+
+              ul {
+                list-style-type: none;
+              }
+
+              span {
+                display: inline-block;
+                width: 80px;
+                margin-right: 10px;
+                margin-bottom: 50px;
+                text-align: center;
+              }
+              span:nth-child(3){
+                margin-right: 0;
+              }
+      }
 }

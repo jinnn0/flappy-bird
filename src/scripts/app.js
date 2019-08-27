@@ -6,12 +6,9 @@ let wh = canvas.height = 600
 
 let score = document.querySelector('.main-score-display')
 
-let jump = new Audio()
-let hit = new Audio()
+
 let fly = new Audio()
 let scored = new Audio()
-jump.src ="./src/assets/audio/jump.mp3"
-hit.src = "./src/assets/audio/hit.mp3"
 fly.src ="./src/assets/audio/fly.mp3"
 scored.src = "./src/assets/audio/score.mp3"
 scored.volume = 0.3
@@ -126,7 +123,7 @@ function Bird(){
     // keyboard interaction
     if(controller.upKeyDown || controller.spaceKeyDown) {
       this.y -= 5
-      jump.play()
+      fly.play()
       c.drawImage(imageNames[5], this.x, this.y)
     }
 
@@ -148,7 +145,6 @@ function Bird(){
         && this.y + this.height > pipes[i].y + pipes[i].upperHeight + pipes[i].gap
         || 
         this.y + this.height + this.gravity > wh - 117){
-        hit.play()
         location.reload()
       }
 
