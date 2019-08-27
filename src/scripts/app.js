@@ -8,8 +8,12 @@ let score = document.querySelector('.score-display')
 
 let jump = new Audio()
 let hit = new Audio()
+let fly = new Audio()
+let scored = new Audio()
 jump.src ="./src/assets/audio/jump.mp3"
 hit.src = "./src/assets/audio/hit.mp3"
+fly.src ="./src/assets/audio/fly.mp3"
+scored.src = "./src/assets/audio/score.mp3"
 
 
 let imageNames = ["bg", "pipeUpper", "pipeLower", "ground", "bird"]
@@ -23,14 +27,14 @@ let imageUrls = [
 
 
 let imageLoadedCount = 0
-function startLoadingAllImages(start){
+function startLoadingAllImages(startGame){
   for(let i = 0; i < imageUrls.length; i++) {
     imageNames[i] = new Image();
 
     imageNames[i].onload = function(){ 
       imageLoadedCount++; 
       if (imageLoadedCount >= imageUrls.length ) {
-        start();
+        startGame();
       }
     }
 
@@ -39,9 +43,9 @@ function startLoadingAllImages(start){
   }      
 }
 
-startLoadingAllImages(start)
+startLoadingAllImages(startGame)
 
-function start(){
+function startGame(){
   drawBird()
   drawPipe()
   render()
@@ -124,6 +128,7 @@ function Bird(){
       if(this.x == pipes[i].x + pipes[i].width){
           this.scoreCount ++
           score.textContent = this.scoreCount
+          scored.play()
       }
 
     }
@@ -186,6 +191,7 @@ function drawPipe(){
 
 let groundX = 0
 function render(){
+  c.fillStyle = "white"
    c.fillRect(0, 0, ww, wh)
    c.drawImage(imageNames[0], 0, 0)  
    c.drawImage(imageNames[0], 286, 0)  
