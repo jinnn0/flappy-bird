@@ -96,7 +96,7 @@
 let canvas = document.querySelector('canvas')
 let c = canvas.getContext('2d')
 
-let ww = canvas.width = 288
+let ww = canvas.width = 500
 let wh = canvas.height = 600
 
 let imageNames = ["bg", "pipeUpper", "pipeLower", "ground", "bird"]
@@ -171,10 +171,10 @@ jump.src ="./src/assets/audio/jump.mp3"
 hit.src = "./src/assets/audio/hit.mp3"
 
 function Bird(){
-  this.x = 10
+  this.x = 200
   this.y = 150
   this.velocity = {x: 0, y: 10}
-  this.gravity = 1.5
+  this.gravity = 1.8
   this.width = 38
   this.height = 26
 
@@ -215,6 +215,7 @@ function Bird(){
 function Pipe(x, y){
   this.x = x
   this.y = y
+  this.velocity = 2
   this.gap = 75
   this.width = 52
   this.upperHeight = 242
@@ -231,13 +232,13 @@ function Pipe(x, y){
   this.update = function(){
     this.draw()
 
-    if(this.x === 120) {
+    if(this.x - this.velocity == 120) {
       let x = ww
       let y = randomInteger(-this.upperHeight + 34, 0)
       pipes.push(new Pipe(x, y))
     }
 
-    this.x --
+    this.x -= this.velocity
   }
 
 }
@@ -264,10 +265,12 @@ function drawPipe(){
   }
 }
 
-
+let groundOneX = 0
+let groundTwoX = 286
 function render(){
    c.fillRect(0, 0, ww, wh)
    c.drawImage(imageNames[0], 0, 0)  
+   c.drawImage(imageNames[0], 286, 0)  
   
   for(let i = 0; i < birds.length; i++){
     birds[i].update()
@@ -277,7 +280,13 @@ function render(){
     pipes[i].update()
   }
   
-  c.drawImage(imageNames[3], 0, wh - imageNames[3].height)
+  c.drawImage(imageNames[3], groundOneX, wh - imageNames[3].height)
+  c.drawImage(imageNames[3], groundOneX+ 286, wh - imageNames[3].height)
+  if(groundOneX < -10){
+    groundOneX = 0
+  }
+  groundOneX --
+
   requestAnimationFrame(render)
 }
 
@@ -285,11 +294,8 @@ function render(){
 
 
 
-
-
 window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener)
-// window.addEventListener("resize", resize)
 
 
 function resize(){
@@ -302,6 +308,11 @@ function resize(){
 function randomInteger(min, max) {
  return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+
+
+
+
 
 
 
