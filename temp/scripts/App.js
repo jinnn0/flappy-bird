@@ -99,6 +99,7 @@ let c = canvas.getContext('2d')
 let ww = canvas.width = 500
 let wh = canvas.height = 600
 
+let score = document.querySelector('.score-display')
 
 let jump = new Audio()
 let hit = new Audio()
@@ -177,9 +178,10 @@ function Bird(){
   this.x = 200
   this.y = 150
   this.velocity = {x: 0, y: 10}
-  this.gravity = 1.8
+  this.gravity = 3
   this.width = 38
   this.height = 26
+  this.scoreCount = 0
 
   this.draw = function(){
       c.drawImage(imageNames[4], this.x, this.y)
@@ -189,7 +191,7 @@ function Bird(){
     this.draw()
 
     if(controller.upKeyDown) {
-      this.y -= 3
+      this.y -= 5
       jump.play()
     }
 
@@ -206,10 +208,19 @@ function Bird(){
         || 
         this.x + this.width > pipes[i].x 
         && this.x < pipes[i].x + pipes[i].width 
-        && this.y + this.height > pipes[i].y + pipes[i].upperHeight + pipes[i].gap){
+        && this.y + this.height > pipes[i].y + pipes[i].upperHeight + pipes[i].gap
+        || 
+        this.y + this.height + this.gravity > wh - 117){
         hit.play()
         location.reload()
       }
+
+      // if you succeed 
+      if(this.x == pipes[i].x + pipes[i].width){
+          this.scoreCount ++
+          score.textContent = this.scoreCount
+      }
+
     }
   }
 }
@@ -235,7 +246,7 @@ function Pipe(x, y){
   this.update = function(){
     this.draw()
 
-    if(this.x - this.velocity == 120) {
+    if(this.x - this.velocity == 160) {
       let x = ww
       let y = randomInteger(-this.upperHeight + 34, 0)
       pipes.push(new Pipe(x, y))
@@ -268,8 +279,7 @@ function drawPipe(){
   }
 }
 
-let groundOneX = 0
-let groundTwoX = 286
+let groundX = 0
 function render(){
    c.fillRect(0, 0, ww, wh)
    c.drawImage(imageNames[0], 0, 0)  
@@ -283,12 +293,12 @@ function render(){
     pipes[i].update()
   }
   
-  c.drawImage(imageNames[3], groundOneX, wh - imageNames[3].height)
-  c.drawImage(imageNames[3], groundOneX+ 286, wh - imageNames[3].height)
-  if(groundOneX < -10){
-    groundOneX = 0
+  c.drawImage(imageNames[3], groundX, wh - imageNames[3].height)
+  c.drawImage(imageNames[3], groundX+ 286, wh - imageNames[3].height)
+  if(groundX < -10){
+    groundX = 0
   }
-  groundOneX --
+  groundX --
 
   requestAnimationFrame(render)
 }
@@ -301,6 +311,14 @@ window.addEventListener("keyup", controller.keyListener)
 function randomInteger(min, max) {
  return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+
+
+
+
+
+
+
 
 /***/ })
 

@@ -42,6 +42,17 @@ footer {
 
 body {
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.scroe {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%); }
+  .scroe .score-display {
+    color: white;
+    font-size: 60px;
+    font-weight: bold; }
