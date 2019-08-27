@@ -48,12 +48,21 @@ body {
   transform: translateX(-50%);
   overflow: hidden; }
 
-.scroe {
+.main-scroe {
   position: absolute;
   top: 10%;
   left: 50%;
   transform: translateX(-50%); }
-  .scroe .score-display {
+  .main-scroe .main-score-display {
     color: white;
     font-size: 60px;
     font-weight: bold; }
+
+.star-button {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: bold;
+  font-size: 60px; }

@@ -99,7 +99,7 @@ let c = canvas.getContext('2d')
 let ww = canvas.width = 500
 let wh = canvas.height = 600
 
-let score = document.querySelector('.score-display')
+let score = document.querySelector('.main-score-display')
 
 let jump = new Audio()
 let hit = new Audio()
@@ -109,15 +109,17 @@ jump.src ="./src/assets/audio/jump.mp3"
 hit.src = "./src/assets/audio/hit.mp3"
 fly.src ="./src/assets/audio/fly.mp3"
 scored.src = "./src/assets/audio/score.mp3"
+scored.volume = 0.3
 
 
-let imageNames = ["bg", "pipeUpper", "pipeLower", "ground", "bird"]
+let imageNames = ["bg", "pipeUpper", "pipeLower", "ground", "bird-1", "bird-2"]
 let imageUrls = [
   "./src/assets/image/bg.png",
   "./src/assets/image/pipeUpper.png",
   "./src/assets/image/pipeLower.png",
   "./src/assets/image/ground.png",
-  "./src/assets/image/bird.png"
+  "./src/assets/image/yellow-bird-1.png",
+  "./src/assets/image/yellow-bird-2.png"
 ]
 
 
@@ -142,32 +144,38 @@ startLoadingAllImages(startGame)
 
 function startGame(){
   drawBird()
+  drawGround()
   drawPipe()
   render()
 }
 
 
-
+let gameStarted = false
 let controller = {
+  spaceKeyDown: false,
+  upKeyDown: false,
   leftKeyDown: false,
   rightKeyDown: false,
-  upKeyDown: false,
   downKeyDown: false,
 
   keyListener: function(e) {
     let keyState = (e.type == "keydown") ? true : false
 
-    switch(e.key) {
+    switch(e.code) {
+      case "ArrowUp":
+        controller.upKeyDown = keyState;
+      break;
+
+      case "Space":
+        controller.spaceKeyDown = keyState;
+      break;
+
       case "ArrowLeft":
         controller.leftKeyDown = keyState;
       break;
 
       case "ArrowRight": 
         controller.rightKeyDown = keyState;
-      break;
-
-      case "ArrowUp":
-        controller.upKeyDown = keyState;
       break;
 
       case "ArrowDown":
@@ -177,11 +185,11 @@ let controller = {
   }
 }
 
-
 function Bird(){
-  this.x = 200
-  this.y = 150
+  this.x = 220
+  this.y = 250
   this.velocity = {x: 0, y: 10}
+  this.animation = {x: 0, y: 0.6}
   this.gravity = 3
   this.width = 38
   this.height = 26
@@ -191,12 +199,30 @@ function Bird(){
       c.drawImage(imageNames[4], this.x, this.y)
   }
 
+  this.startAnimation = function(){
+    this.draw()
+      if(this.y + this.animation.y > 250 + 5 
+        || this.y + this.animation.y < 250 - 5) {
+        this.animation.y = -this.animation.y
+      }
+    
+      this.y += this.animation.y
+
+      if(controller.spaceKeyDown
+        || controller.upKeyDown) {
+        gameStarted = true
+      }    
+    }
+
+
   this.update = function(){
     this.draw()
 
-    if(controller.upKeyDown) {
+    // keyboard interaction
+    if(controller.upKeyDown || controller.spaceKeyDown) {
       this.y -= 5
       jump.play()
+      c.drawImage(imageNames[5], this.x, this.y)
     }
 
     if(controller.downKeyDown) { this.y += 3 }
@@ -205,6 +231,8 @@ function Bird(){
   
     this.y += this.gravity
 
+
+    // collision detection
     for(let i = 0; i < pipes.length; i++) {
       if(this.x + this.width > pipes[i].x 
         && this.x < pipes[i].x + pipes[i].width
@@ -225,10 +253,10 @@ function Bird(){
           score.textContent = this.scoreCount
           scored.play()
       }
-
+     }
     }
   }
-}
+
 
 
 function Pipe(x, y){
@@ -259,6 +287,25 @@ function Pipe(x, y){
 
     this.x -= this.velocity
   }
+}
+
+function Ground(){
+  this.x = 0
+
+  this.draw = function(){
+    c.drawImage(imageNames[3], this.x, wh - imageNames[3].height)
+    c.drawImage(imageNames[3], this.x + 286, wh - imageNames[3].height)
+  }
+
+  this.update = function(){
+    this.draw()
+    
+    if(this.x < -10){
+      this.x = 0
+    }
+
+    this.x --
+    }
 
 }
 
@@ -276,7 +323,7 @@ let pipes
 function drawPipe(){
   pipes = []
   for(let i = 0; i < 1; i++){
-    let x = ww - 80
+    let x = ww 
     let y = 0
 
     let pipe = new Pipe(x, y)
@@ -284,27 +331,43 @@ function drawPipe(){
   }
 }
 
-let groundX = 0
+let grounds
+function drawGround(){
+  grounds = []
+
+  for(let i = 0; i < 1; i++){
+    let ground = new Ground()
+    grounds.push(ground)
+  }
+}
+
 function render(){
-  c.fillStyle = "white"
+   c.fillStyle = "white"
    c.fillRect(0, 0, ww, wh)
+
+   // draw background
    c.drawImage(imageNames[0], 0, 0)  
    c.drawImage(imageNames[0], 286, 0)  
   
   for(let i = 0; i < birds.length; i++){
-    birds[i].update()
+    if(!gameStarted){
+      birds[i].startAnimation()
+    } else {
+      birds[i].update()
+    }
   }
   
   for(let i = 0; i < pipes.length; i++){
-    pipes[i].update()
+    if(!gameStarted){
+      pipes[i].draw()
+    } else {
+      pipes[i].update()
+    }
   }
-  
-  c.drawImage(imageNames[3], groundX, wh - imageNames[3].height)
-  c.drawImage(imageNames[3], groundX+ 286, wh - imageNames[3].height)
-  if(groundX < -10){
-    groundX = 0
+
+  for(let i = 0; i < grounds.length; i++){
+    grounds[i].update()
   }
-  groundX --
 
   requestAnimationFrame(render)
 }
@@ -317,14 +380,6 @@ window.addEventListener("keyup", controller.keyListener)
 function randomInteger(min, max) {
  return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
-
-
-
-
-
-
-
 
 /***/ })
 
