@@ -387,7 +387,7 @@ function Pipe(pipes, img1, img2, x, y){
     }
 
     for(let i = 0; i < pipes.length; i++) {
-      if(pipes[i].x < 0) {
+      if(pipes[i].x + pipes[i].width < 0) {
         pipes.shift()
       }
     }
