@@ -60,28 +60,3 @@ canvas {
     color: white;
     font-size: 60px;
     font-weight: bold; }
-
-.score-history {
-  background-color: #f2f2f2;
-  width: 300px;
-  height: 500px;
-  position: absolute;
-  top: 8%;
-  left: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-  .score-history .title {
-    margin-top: 30px; }
-  .score-history .user-record {
-    margin-top: 60px; }
-    .score-history .user-record ul {
-      list-style-type: none; }
-    .score-history .user-record span {
-      display: inline-block;
-      width: 80px;
-      margin-right: 10px;
-      margin-bottom: 50px;
-      text-align: center; }
-    .score-history .user-record span:nth-child(3) {
-      margin-right: 0; }
