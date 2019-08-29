@@ -6,39 +6,12 @@
   letter-spacing: 0.01em;
   font-weight: 200; }
 
-a {
-  text-decoration: none;
-  transition: all .15s ease;
-  color: black;
-  padding-bottom: 5px; }
-
 .wrapper {
   max-width: 1280px;
   padding-left: 18px;
   padding-right: 18px;
   margin: auto;
   text-align: center; }
-
-footer {
-  height: 300px;
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; }
-  footer .social {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px; }
-    @media (min-width: 750px) {
-      footer .social {
-        width: 400px; } }
-    footer .social a {
-      border: 1px solid transparent; }
-    footer .social a:hover {
-      border-bottom: 1px solid black; }
 
 body {
   width: 100%;
