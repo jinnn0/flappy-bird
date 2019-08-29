@@ -1,9 +1,9 @@
 const gulp = require('gulp'),
       sass = require('gulp-sass'),
       browserSync = require('browser-sync').create(),
-      webpack = require('webpack'),
-      webpackConfig = require('./webpack.config'),
-      uglifyCss = require('gulp-uglifycss')
+      // webpack = require('webpack'),
+      // webpackConfig = require('./webpack.config'),
+      // uglifyCss = require('gulp-uglifycss')
  
     
 
@@ -16,15 +16,8 @@ gulp.task('sass', function(){
     })
 
 
-// gulp.task('scripts', function(){
-//      webpack()
-// })
 
 
-
-
-// watch all Sass files 
-// and run the sass task whenever a Sass file is saved
 gulp.task('watch', function(){
   browserSync.init({
     notify: false,
