@@ -107,9 +107,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ 
 
-
-let imageLoadedCount = 0
+let imageLoadedCount = 0 
 function startLoadingAllImages(startGame){
   for(let i = 0; i < _modules_images__WEBPACK_IMPORTED_MODULE_0__["imageUrls"].length; i++) {
     _modules_images__WEBPACK_IMPORTED_MODULE_0__["imageNames"][i] = new Image()
@@ -213,6 +213,7 @@ window.addEventListener("keyup", controller.keyListener)
 _modules_canvasElements__WEBPACK_IMPORTED_MODULE_2__["canvas"].addEventListener("touchstart", controller.touchListener)
 _modules_canvasElements__WEBPACK_IMPORTED_MODULE_2__["canvas"].addEventListener("touchend", controller.touchListener)
 
+console.log("main js",pipes);
 
 /***/ }),
 
@@ -256,7 +257,7 @@ function Bird(controller, pipes, img4, img5){
 
     if(this.y + this.animation.y > 250 + 5 
       || this.y + this.animation.y < 250 - 5) {
-      this.animation.y = -this.animation.y
+      this.animation.y = -this.animation.y 
     }
   
     this.y += this.animation.y
@@ -367,7 +368,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Pipe(pipes, img1, img2, x, y){
-  this.x = x
+  this.x = x 
   this.y = y
   this.velocity = 2
   this.gap = 75
@@ -393,12 +394,6 @@ function Pipe(pipes, img1, img2, x, y){
       let y = randomInteger(-this.upperHeight + 34, 0)
       pipes.push(new Pipe(pipes, img1, img2, x, y))
     }
-
-    // for(let i = 0; i < pipes.length; i++) {
-    //   if(pipes[i].x + pipes[i].width + 100 < 0) {
-    //     pipes.shift()
-    //   }
-    // } 
   } 
 
   function randomInteger(min, max) {

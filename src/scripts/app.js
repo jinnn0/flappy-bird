@@ -4,9 +4,9 @@ import {canvas, c, ww, wh} from './modules/canvasElements'
 import {Bird} from './modules/Bird'
 import {Pipe} from './modules/Pipe'
 import {Ground} from './modules/Ground'
+ 
 
-
-let imageLoadedCount = 0
+let imageLoadedCount = 0 
 function startLoadingAllImages(startGame){
   for(let i = 0; i < imageUrls.length; i++) {
     imageNames[i] = new Image()
@@ -109,3 +109,5 @@ window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener)
 canvas.addEventListener("touchstart", controller.touchListener)
 canvas.addEventListener("touchend", controller.touchListener)
+
+console.log("main js",pipes);
