@@ -1,6 +1,6 @@
 import {imageNames, imageUrls} from './modules/images'
 import {Controller} from './modules/controller'
-import {c, ww, wh} from './modules/canvasElements'
+import {canvas, c, ww, wh} from './modules/canvasElements'
 import {Bird} from './modules/Bird'
 import {Pipe} from './modules/Pipe'
 import {Ground} from './modules/Ground'
@@ -107,3 +107,5 @@ function render(){
 
 window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener)
+canvas.addEventListener("touchstart", controller.touchListener)
+canvas.addEventListener("touchend", controller.touchListener)

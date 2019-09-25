@@ -5,7 +5,8 @@ export function Controller(){
   this.leftKeyDown = false
   this.rightKeyDown = false
   this.downKeyDown = false
-
+  this.touched = false
+ 
   this.keyListener = (e) => {
     let keyState = (e.type == "keydown") ? true : false
 
@@ -16,5 +17,17 @@ export function Controller(){
       case "ArrowRight":  this.rightKeyDown = keyState; break;
       case "ArrowDown": this.downKeyDown = keyState; break;
     }
+  }
+
+  this.touchListener = (e) => {
+    e.preventDefault()
+    let touchState = (e.type == "touchstart") ? true : false
+
+    if(e.type == "touchstart") {
+      this.gameStarted = touchState
+      this.spaceKeyDown = touchState
+      this.touched = touchState
+    }
+    
   }
 }

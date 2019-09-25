@@ -210,6 +210,8 @@ function render(){
 
 window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener)
+_modules_canvasElements__WEBPACK_IMPORTED_MODULE_2__["canvas"].addEventListener("touchstart", controller.touchListener)
+_modules_canvasElements__WEBPACK_IMPORTED_MODULE_2__["canvas"].addEventListener("touchend", controller.touchListener)
 
 
 /***/ }),
@@ -234,7 +236,7 @@ function Bird(controller, pipes, img4, img5){
   fly.src ="./src/assets/audio/fly.mp3"
   scored.src = "./src/assets/audio/score.mp3"
   scored.volume = 0.3
-
+ 
 
   this.x = 220
   this.y = 250
@@ -264,13 +266,19 @@ function Bird(controller, pipes, img4, img5){
         controller.gameStarted = true
       }          
     }
-    
+
     
     this.update = function(){
       this.draw()
       
       // keyboard interaction
       if(controller.upKeyDown || controller.spaceKeyDown) {
+        this.y -= 5
+        fly.play()
+        _canvasElements__WEBPACK_IMPORTED_MODULE_0__["c"].drawImage(img5, this.x, this.y)
+      }
+
+      if(controller.touched) {
         this.y -= 5
         fly.play()
         _canvasElements__WEBPACK_IMPORTED_MODULE_0__["c"].drawImage(img5, this.x, this.y)
@@ -329,7 +337,7 @@ function Ground(img3){
   this.draw = function(){
     _canvasElements__WEBPACK_IMPORTED_MODULE_0__["c"].drawImage(img3, this.x, _canvasElements__WEBPACK_IMPORTED_MODULE_0__["wh"] - img3.height)
     _canvasElements__WEBPACK_IMPORTED_MODULE_0__["c"].drawImage(img3, this.x + 286, _canvasElements__WEBPACK_IMPORTED_MODULE_0__["wh"] - img3.height)
-  }
+  } 
 
   this.update = function(){
     this.draw()
@@ -386,12 +394,12 @@ function Pipe(pipes, img1, img2, x, y){
       pipes.push(new Pipe(pipes, img1, img2, x, y))
     }
 
-    for(let i = 0; i < pipes.length; i++) {
-      if(pipes[i].x + pipes[i].width < 0) {
-        pipes.shift()
-      }
-    }
-  }
+    // for(let i = 0; i < pipes.length; i++) {
+    //   if(pipes[i].x + pipes[i].width + 100 < 0) {
+    //     pipes.shift()
+    //   }
+    // } 
+  } 
 
   function randomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -438,7 +446,8 @@ function Controller(){
   this.leftKeyDown = false
   this.rightKeyDown = false
   this.downKeyDown = false
-
+  this.touched = false
+ 
   this.keyListener = (e) => {
     let keyState = (e.type == "keydown") ? true : false
 
@@ -449,6 +458,18 @@ function Controller(){
       case "ArrowRight":  this.rightKeyDown = keyState; break;
       case "ArrowDown": this.downKeyDown = keyState; break;
     }
+  }
+
+  this.touchListener = (e) => {
+    e.preventDefault()
+    let touchState = (e.type == "touchstart") ? true : false
+
+    if(e.type == "touchstart") {
+      this.gameStarted = touchState
+      this.spaceKeyDown = touchState
+      this.touched = touchState
+    }
+    
   }
 }
 

@@ -7,7 +7,7 @@ export function Bird(controller, pipes, img4, img5){
   fly.src ="./src/assets/audio/fly.mp3"
   scored.src = "./src/assets/audio/score.mp3"
   scored.volume = 0.3
-
+ 
 
   this.x = 220
   this.y = 250
@@ -27,7 +27,7 @@ export function Bird(controller, pipes, img4, img5){
 
     if(this.y + this.animation.y > 250 + 5 
       || this.y + this.animation.y < 250 - 5) {
-      this.animation.y = -this.animation.y
+      this.animation.y = -this.animation.y 
     }
   
     this.y += this.animation.y
@@ -37,13 +37,19 @@ export function Bird(controller, pipes, img4, img5){
         controller.gameStarted = true
       }          
     }
-    
+
     
     this.update = function(){
       this.draw()
       
       // keyboard interaction
       if(controller.upKeyDown || controller.spaceKeyDown) {
+        this.y -= 5
+        fly.play()
+        c.drawImage(img5, this.x, this.y)
+      }
+
+      if(controller.touched) {
         this.y -= 5
         fly.play()
         c.drawImage(img5, this.x, this.y)

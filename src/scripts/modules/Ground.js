@@ -6,7 +6,7 @@ export function Ground(img3){
   this.draw = function(){
     c.drawImage(img3, this.x, wh - img3.height)
     c.drawImage(img3, this.x + 286, wh - img3.height)
-  }
+  } 
 
   this.update = function(){
     this.draw()

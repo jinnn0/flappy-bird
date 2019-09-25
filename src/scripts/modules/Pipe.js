@@ -28,12 +28,12 @@ export function Pipe(pipes, img1, img2, x, y){
       pipes.push(new Pipe(pipes, img1, img2, x, y))
     }
 
-    for(let i = 0; i < pipes.length; i++) {
-      if(pipes[i].x + pipes[i].width < 0) {
-        pipes.shift()
-      }
-    }
-  }
+    // for(let i = 0; i < pipes.length; i++) {
+    //   if(pipes[i].x + pipes[i].width + 100 < 0) {
+    //     pipes.shift()
+    //   }
+    // } 
+  } 
 
   function randomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
