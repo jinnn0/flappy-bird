@@ -1,14 +1,14 @@
-import {c, wh} from './canvasElements'
-
+import {canvas2dContext, canvasHeight} from './canvasElements'
+ 
 export function Bird(controller, pipes, img4, img5){
   let score = document.querySelector('.main-score-display')
-  let fly = new Audio()
-  let scored = new Audio()
-  fly.src ="./src/assets/audio/fly.mp3"
-  scored.src = "./src/assets/audio/score.mp3"
+  let fly = new Audio() 
+  let scored = new Audio()  
+  fly.src ="./src/assets/audio/fly.mp3" 
+  scored.src = "./src/assets/audio/score.mp3" 
   scored.volume = 0.3
+  
  
-
   this.x = 220
   this.y = 250
   this.velocity = {x: 0, y: 10}
@@ -19,7 +19,7 @@ export function Bird(controller, pipes, img4, img5){
   this.scoreCount = 0
 
   this.draw = function(){
-    c.drawImage(img4, this.x, this.y)
+    canvas2dContext.drawImage(img4, this.x, this.y)
   }
 
   this.startAnimation = function(){
@@ -46,13 +46,13 @@ export function Bird(controller, pipes, img4, img5){
       if(controller.upKeyDown || controller.spaceKeyDown) {
         this.y -= 5
         fly.play()
-        c.drawImage(img5, this.x, this.y)
+        canvas2dContext.drawImage(img5, this.x, this.y)
       }
 
       if(controller.touched) {
         this.y -= 5
         fly.play()
-        c.drawImage(img5, this.x, this.y)
+        canvas2dContext.drawImage(img5, this.x, this.y)
       }
       
       if(controller.downKeyDown) { this.y += 3 }
@@ -73,7 +73,7 @@ export function Bird(controller, pipes, img4, img5){
         && this.x < pipes[i].x + pipes[i].width 
         && this.y + this.height > pipes[i].y + pipes[i].upperHeight + pipes[i].gap
         || 
-        this.y + this.height + this.gravity > wh - 117){
+        this.y + this.height + this.gravity > canvasHeight - 117){
         location.reload()
       }
 

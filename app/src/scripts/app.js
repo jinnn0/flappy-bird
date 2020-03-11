@@ -1,10 +1,12 @@
+import "../styles/style.scss"
+  
 import {imageNames, imageUrls} from './modules/images'
 import {Controller} from './modules/controller'
-import {canvas, c, ww, wh} from './modules/canvasElements'
+import {canvas, canvas2dContext, canvasWidth, canvasHeight} from './modules/canvasElements'
 import {Bird} from './modules/Bird'
 import {Pipe} from './modules/Pipe'
-import {Ground} from './modules/Ground'
- 
+import {Ground} from './modules/Ground' 
+      
 
 let imageLoadedCount = 0 
 function startLoadingAllImages(startGame){
@@ -26,14 +28,14 @@ function startLoadingAllImages(startGame){
 startLoadingAllImages(startGame)
 
 
-
+ 
 
 function startGame(){
   drawPipe()
   drawBird()
   drawGround()
   render()
-}
+} 
 
 
 
@@ -44,12 +46,12 @@ let grounds = []
 
 let controller = new Controller()
 let bird = new Bird(controller, pipes, imageNames[4], imageNames[5])
-let pipe = new Pipe(pipes, imageNames[1], imageNames[2], ww, 0)
+let pipe = new Pipe(pipes, imageNames[1], imageNames[2], canvasWidth, 0)
 let ground = new Ground(imageNames[3])
 
+ 
 
-
-
+ 
 function drawBird(){
   for(let i = 0; i < 1; i++) {
     birds.push(bird)
@@ -72,13 +74,13 @@ function drawGround(){
 
 
 function render(){
-  c.fillStyle = "white"
-  c.fillRect(0, 0, ww, wh)
+  canvas2dContext.fillStyle = "canvasHeightite"
+  canvas2dContext.fillRect(0, 0, canvasWidth, canvasHeight)
   
 
   // constantly draw background
-  c.drawImage(imageNames[0], 0, 0)  
-  c.drawImage(imageNames[0], 286, 0)  
+  canvas2dContext.drawImage(imageNames[0], 0, 0)  
+  canvas2dContext.drawImage(imageNames[0], 286, 0)  
   
  for(let i = 0; i < birds.length; i++){
    if(!controller.gameStarted){
@@ -109,5 +111,3 @@ window.addEventListener("keydown", controller.keyListener)
 window.addEventListener("keyup", controller.keyListener)
 canvas.addEventListener("touchstart", controller.touchListener)
 canvas.addEventListener("touchend", controller.touchListener)
-
-console.log("main js",pipes);

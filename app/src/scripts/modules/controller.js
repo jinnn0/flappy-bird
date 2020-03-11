@@ -5,8 +5,8 @@ export function Controller(){
   this.leftKeyDown = false
   this.rightKeyDown = false
   this.downKeyDown = false
-  this.touched = false
- 
+  this.touched = false 
+   
   this.keyListener = (e) => {
     let keyState = (e.type == "keydown") ? true : false
 
@@ -28,6 +28,5 @@ export function Controller(){
       this.spaceKeyDown = touchState
       this.touched = touchState
     }
-    
   }
 }

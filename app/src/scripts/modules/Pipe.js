@@ -1,4 +1,4 @@
-import {c, ww} from './canvasElements'
+import {canvas2dContext, canvasWidth} from './canvasElements'
 
 export function Pipe(pipes, img1, img2, x, y){
   this.x = x 
@@ -9,11 +9,11 @@ export function Pipe(pipes, img1, img2, x, y){
   this.upperHeight = 242
   this.lowerHeight = 378
   this.lowerPipeYPos = this.upperHeight + this.gap
-  
-  this.draw = function(){
+    
+  this.draw = function(){ 
     for(let i = 0; i < pipes.length; i++) {
-      c.drawImage(img1, this.x, this.y)
-      c.drawImage(img2, this.x, this.y + this.lowerPipeYPos)
+      canvas2dContext.drawImage(img1, this.x, this.y)
+      canvas2dContext.drawImage(img2, this.x, this.y + this.lowerPipeYPos)
     }
   }
 
@@ -23,7 +23,7 @@ export function Pipe(pipes, img1, img2, x, y){
     this.x -= this.velocity
 
     if(this.x - this.velocity == 160) {
-      let x = ww
+      let x = canvasWidth
       let y = randomInteger(-this.upperHeight + 34, 0)
       pipes.push(new Pipe(pipes, img1, img2, x, y))
     }

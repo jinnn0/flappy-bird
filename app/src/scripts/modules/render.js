@@ -1,15 +1,15 @@
-import {c, ww, wh} from './canvasElements'
+import {canvas2dContext, canvasWidth, canvasHeight} from './canvasElements'
 import {imageNames} from './images'
 
-
+  
 export function render(controller, birds, pipes, grounds){
-  c.fillStyle = "white"
-  c.fillRect(0, 0, ww, wh)
-  
+  canvas2dContext.fillStyle = "white"
+  canvas2dContext.fillRect(0, 0, canvasWidth, canvasHeight)
+   
   // draw background
-  c.drawImage(imageNames[0], 0, 0)  
-  c.drawImage(imageNames[0], 286, 0)  
-  
+  canvas2dContext.drawImage(imageNames[0], 0, 0)  
+  canvas2dContext.drawImage(imageNames[0], 286, 0)  
+   
  for(let i = 0; i < birds.length; i++){
    if(!controller.gameStarted){
      birds[i].startAnimation()
