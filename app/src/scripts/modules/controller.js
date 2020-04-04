@@ -1,11 +1,14 @@
-export function Controller(){
+function Controller(){
   this.gameStarted = false
   this.spaceKeyDown = false
   this.upKeyDown = false
   this.leftKeyDown = false
   this.rightKeyDown = false
   this.downKeyDown = false
-  this.touched = false 
+
+  // mobile device
+  this.touchStart = false 
+  this.touchEnd = false 
    
   this.keyListener = (e) => {
     let keyState = (e.type == "keydown") ? true : false
@@ -16,17 +19,23 @@ export function Controller(){
       case "ArrowLeft": this.leftKeyDown = keyState; break;
       case "ArrowRight":  this.rightKeyDown = keyState; break;
       case "ArrowDown": this.downKeyDown = keyState; break;
-    }
-  }
+    } 
+  } 
 
   this.touchListener = (e) => {
     e.preventDefault()
-    let touchState = (e.type == "touchstart") ? true : false
 
     if(e.type == "touchstart") {
-      this.gameStarted = touchState
-      this.spaceKeyDown = touchState
-      this.touched = touchState
+      this.touchStart = true 
+      this.touchEnd = false
+    } 
+    
+    else if (e.type == "touchend") {
+      this.touchEnd = true
+      this.touchStart = false
     }
+
   }
 }
+
+export default Controller

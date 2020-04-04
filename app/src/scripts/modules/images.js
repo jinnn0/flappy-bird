@@ -1,13 +1,13 @@
-export let imageNames = [
+let imageNames = [
   "bg", 
   "pipeUpper", 
   "pipeLower", 
   "ground", 
   "bird-1", 
   "bird-2"
-]
+]  
 
-export let imageUrls = [
+let imageUrls = [
   "./src/assets/image/bg.png",
   "./src/assets/image/pipeUpper.png",
   "./src/assets/image/pipeLower.png",
@@ -16,3 +16,4 @@ export let imageUrls = [
   "./src/assets/image/yellow-bird-2.png"
 ]  
 
+export {imageNames, imageUrls}

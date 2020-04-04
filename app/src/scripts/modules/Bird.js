@@ -1,13 +1,13 @@
 import {canvas2dContext, canvasHeight} from './canvasElements'
  
-export function Bird(controller, pipes, img4, img5){
+function Bird(controller, pipes, img4, img5){
   let score = document.querySelector('.main-score-display')
   let fly = new Audio() 
   let scored = new Audio()  
   fly.src ="./src/assets/audio/fly.mp3" 
   scored.src = "./src/assets/audio/score.mp3" 
-  scored.volume = 0.3
-  
+  scored.volume = 0.2
+   
  
   this.x = 220
   this.y = 250
@@ -22,6 +22,8 @@ export function Bird(controller, pipes, img4, img5){
     canvas2dContext.drawImage(img4, this.x, this.y)
   }
 
+  // simulates bird floating in the air
+  // before the game starts
   this.startAnimation = function(){
     this.draw()
 
@@ -32,27 +34,31 @@ export function Bird(controller, pipes, img4, img5){
   
     this.y += this.animation.y
 
-    if(controller.spaceKeyDown
-      || controller.upKeyDown) {
+    if(controller.spaceKeyDown || 
+       controller.upKeyDown ||  
+       controller.touchStart) {
+
         controller.gameStarted = true
-      }          
+      }  
     }
 
     
     this.update = function(){
       this.draw()
       
-      // keyboard interaction
-      if(controller.upKeyDown || controller.spaceKeyDown) {
+      // desktop keyboard and mobiel touch start interaction
+      if(controller.upKeyDown || 
+         controller.spaceKeyDown || 
+         controller.touchStart) {
         this.y -= 5
         fly.play()
         canvas2dContext.drawImage(img5, this.x, this.y)
       }
 
-      if(controller.touched) {
-        this.y -= 5
-        fly.play()
-        canvas2dContext.drawImage(img5, this.x, this.y)
+      // mobile touch end interaction
+      if(controller.touchEnd) {
+        this.gravity = 1
+        this.y += this.gravity 
       }
       
       if(controller.downKeyDown) { this.y += 3 }
@@ -82,7 +88,9 @@ export function Bird(controller, pipes, img4, img5){
           this.scoreCount ++
           score.textContent = this.scoreCount
           scored.play()
-      }
+      } 
      }
     }
-  }
+ }
+
+export default Bird

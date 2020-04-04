@@ -1,13 +1,13 @@
 import "../styles/style.scss"
   
 import {imageNames, imageUrls} from './modules/images'
-import {Controller} from './modules/controller'
 import {canvas, canvas2dContext, canvasWidth, canvasHeight} from './modules/canvasElements'
-import {Bird} from './modules/Bird'
-import {Pipe} from './modules/Pipe'
-import {Ground} from './modules/Ground' 
-      
-
+import Controller from './modules/controller'
+import Bird from './modules/Bird'
+import Pipe from './modules/Pipe'
+import Ground from './modules/Ground' 
+       
+  
 let imageLoadedCount = 0 
 function startLoadingAllImages(startGame){
   for(let i = 0; i < imageUrls.length; i++) {
@@ -16,6 +16,12 @@ function startLoadingAllImages(startGame){
     imageNames[i].onload = function(){ 
       imageLoadedCount++; 
       if (imageLoadedCount >= imageUrls.length ) {
+        canvas2dContext.drawImage(imageNames[0], 0, 0)  
+        canvas2dContext.drawImage(imageNames[0], 286, 0)
+        
+        let imageData = canvas2dContext.getImageData(0, 0, canvasWidth, canvasHeight)
+        // canvas2dContext.putImageData(imageData, 0, 0)
+
         startGame();
       }
     }
@@ -28,7 +34,6 @@ function startLoadingAllImages(startGame){
 startLoadingAllImages(startGame)
 
 
- 
 
 function startGame(){
   drawPipe()
@@ -43,6 +48,9 @@ function startGame(){
 let birds = []
 let pipes = []
 let grounds = []
+let birdsLength
+let pipesLength
+let groundsLength
 
 let controller = new Controller()
 let bird = new Bird(controller, pipes, imageNames[4], imageNames[5])
@@ -51,45 +59,46 @@ let ground = new Ground(imageNames[3])
 
  
 
- 
+console.log(birdsLength)
 function drawBird(){
   for(let i = 0; i < 1; i++) {
     birds.push(bird)
   }
+  birdsLength = birds.length
 }
 
 function drawPipe(){
   for(let i = 0; i < 1; i++){
     pipes.push(pipe)
   }
+  pipesLength = pipes.length
 }
 
 function drawGround(){
   for(let i = 0; i < 1; i++){
     grounds.push(ground)
   }
+  groundsLength = grounds.length
 }
 
 
 
-
 function render(){
-  canvas2dContext.fillStyle = "canvasHeightite"
-  canvas2dContext.fillRect(0, 0, canvasWidth, canvasHeight)
-  
 
   // constantly draw background
   canvas2dContext.drawImage(imageNames[0], 0, 0)  
-  canvas2dContext.drawImage(imageNames[0], 286, 0)  
-  
- for(let i = 0; i < birds.length; i++){
+  canvas2dContext.drawImage(imageNames[0], 286, 0)   
+//  canvas2dContext.putImageData(imageData, 0, 0)
+
+ for(let i = 0; i < birdsLength; i++){
    if(!controller.gameStarted){
      birds[i].startAnimation()
-   } else {
+   } else {  
      birds[i].update()
-   }
+   } 
  }
  
+//  for(let i = 0; i < pipesLength; i++){
  for(let i = 0; i < pipes.length; i++){
    if(!controller.gameStarted){
      pipes[i].draw()
@@ -98,7 +107,7 @@ function render(){
    }
  }
 
- for(let i = 0; i < grounds.length; i++){
+ for(let i = 0; i < groundsLength; i++){
    grounds[i].update()
  }
 

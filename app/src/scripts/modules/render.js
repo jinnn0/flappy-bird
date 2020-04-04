@@ -5,7 +5,7 @@ import {imageNames} from './images'
 export function render(controller, birds, pipes, grounds){
   canvas2dContext.fillStyle = "white"
   canvas2dContext.fillRect(0, 0, canvasWidth, canvasHeight)
-   
+    
   // draw background
   canvas2dContext.drawImage(imageNames[0], 0, 0)  
   canvas2dContext.drawImage(imageNames[0], 286, 0)  
