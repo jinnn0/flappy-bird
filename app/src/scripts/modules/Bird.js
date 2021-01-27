@@ -9,6 +9,7 @@ function Bird(controller, pipes, img4, img5){
   scored.volume = 0.2
    
  
+   // Bird's initial position x,y
   this.x = 220
   this.y = 250
   this.velocity = {x: 0, y: 10}
@@ -70,27 +71,30 @@ function Bird(controller, pipes, img4, img5){
 
 
     // collision detection
-    for(let i = 0; i < pipes.length; i++) {
-      if(this.x + this.width > pipes[i].x 
-        && this.x < pipes[i].x + pipes[i].width
-        && this.y < pipes[i].y + pipes[i].upperHeight
-        || 
-        this.x + this.width > pipes[i].x 
-        && this.x < pipes[i].x + pipes[i].width 
-        && this.y + this.height > pipes[i].y + pipes[i].upperHeight + pipes[i].gap
-        || 
-        this.y + this.height + this.gravity > canvasHeight - 117){
-        location.reload()
+    const startOfBird = this.x;
+    const endOfBird = this.x + this.width;
+    const bottomOfBird = this.y;
+
+    for (let i = 0; i < pipes.length; i++) {
+      const startOfPipe = pipes[i].x;
+      const endOfPipe = pipes[i].x + pipes[i].width;
+      const pipeHeight = pipes[i].y + pipes[i].upperHeight;
+      const birdHeight = this.y + this.height;
+      const insidePipe = endOfBird > startOfPipe && startOfBird < endOfPipe;
+      const crashed = bottomOfBird < pipeHeight || birdHeight > pipeHeight + pipes[i].gap;
+
+      if (insidePipe && crashed) {
+        location.reload();
       }
 
-      // if you succeed 
-      if(this.x == pipes[i].x + pipes[i].width){
-          this.scoreCount ++
-          score.textContent = this.scoreCount
-          scored.play()
-      } 
-     }
+      // if you succeed
+      if (startOfBird === endOfPipe) {
+        this.scoreCount++;
+        score.textContent = this.scoreCount;
+        scored.play();
+      }
     }
+  }
  }
 
 export default Bird
