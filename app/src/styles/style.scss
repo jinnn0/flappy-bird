@@ -1,5 +1,9 @@
-@import './base/global';
-@import './base/mixin';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Plain', sans-serif;
+}
 
 body {
   width: 100%;
@@ -9,26 +13,25 @@ body {
   justify-content: center;
   align-items: center;
 }
-  
+
 canvas {
   width: 410px;
   height: 600px;
 
-  @include atSmall {
+  @media (min-width: 500px) {
     width: 500px;
   }
 }
 
-.main-scroe {
+.main-score {
   position: absolute;
-  top: 14%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
 
-  
-      .main-score-display {
-        color: white;
-        font-size: 60px;
-        font-weight: bold;
-      }
+  .main-score-display {
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+  }
 }
