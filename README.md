@@ -1,4 +1,10 @@
-# Flappy Bird 
+Developed with vanila javaScript and Canvas.
 
- 
-see how it's done! [Flappy Bird](https://jinnn0.github.io/flappy-bird/)
+### Core concepts covered
+
+- [x] ES6 Modules
+- [x] Object-oriented JavaScript
+
+## Screenshot
+
+![screenshot](screenshot.png)
