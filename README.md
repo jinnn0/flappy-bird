@@ -1,4 +1,4 @@
-Developed with vanila javaScript and Canvas.
+Developed with vanila JavaScript and Canvas.
 
 ### Core concepts covered
 
